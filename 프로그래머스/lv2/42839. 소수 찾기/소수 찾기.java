@@ -1,61 +1,66 @@
 import java.util.*;
 class Solution {
-    static ArrayList<Integer> resultList = new ArrayList<>();
+    static String[] number;
+    static boolean[] visited;
+    static String[] out;
+    //static ArrayList<Integer> list = new ArrayList<>();
+    static Set<Integer> set = new HashSet();
+    public int solution(String numbers) {
+        int answer = 0;
+        number = numbers.split("");
+
+        out = new String[number.length];
+        visited = new boolean[number.length];
+     
+        // 자리수
+        for(int i=1; i<=number.length; i++){
+            permutation(0, i);
+        }
     
-    public static void main(String args[]){
-        System.out.println(solution("17"));
-        System.out.println(solution("011"));
+        //answer = list.size();
+        answer =set.size();
+        return answer;
     }
+
+    static void permutation(int depth, int r){
+        if(depth==r){
+            String s = "";
+        
+            for(int i=0; i<r; i++){
+                s+=out[i];
+            }
+            // 같은 수 포함되어 있지 않다면 && 소수인 경우
+            // if(!list.contains(Integer.parseInt(s)) && isPrime(Integer.parseInt(s))){
+            //     list.add(Integer.parseInt(s));
+            // }
+            if(isPrime(Integer.parseInt(s))){
+                set.add(Integer.parseInt(s));
+            }
     
-    public static int solution(String numbers) {
-      
-        int len = numbers.length();
-        int[] arr = new int[len];
-        
-        for(int i=0; i<len; i++) arr[i] = numbers.charAt(i) - '0';
-
-        for(int i=1; i<=len; i++) permutation(arr, 0, len, i);
-        
-        return resultList.size();
-    }
-
-    public static void permutation(int[] arr, int depth, int n, int r) {
-      
-        if(depth == r) {
-            String number = "";
-            for(int i=0; i<r; i++) {
-                number += arr[i];
-            }
-
-            if(isPrime(Integer.valueOf(number)) && !resultList.contains(Integer.valueOf(number)) ) {
-                resultList.add(Integer.valueOf(number));
-            }
-
             return;
         }
-
-        for(int i=depth; i<n; i++) {
-            swap(arr, depth, i);
-            permutation(arr, depth + 1, n, r);
-            swap(arr, depth, i);
-        }
-    }
-
-    public static void swap(int[] arr, int depth, int i) {
-        int temp = arr[depth];
-        arr[depth] = arr[i];
-        arr[i] = temp;
-    }
-
-    public static boolean isPrime(int n){
-        if(n<2) return false;
-
-        for(int i=2; i<=(int) Math.sqrt(n); i++) {
-            if(n%i == 0) {
-               return false;
+        
+        for(int i=0; i<visited.length; i++){
+            if(!visited[i]){
+                visited[i] = true;
+                out[depth] = number[i];
+                permutation(depth+1, r);
+                visited[i] = false;
             }
         }
-
-        return true;
     }
+    public static boolean isPrime(int num){
+        boolean isPrime = true;
+        if(num<=1) isPrime = false;
+        if(num>1){
+            for(int i = 2; i<num; i++){
+                if(num%i==0){
+                    isPrime = false;
+                    break;
+                }
+            }
+        }
+        return isPrime;
+    }
+    
 }
