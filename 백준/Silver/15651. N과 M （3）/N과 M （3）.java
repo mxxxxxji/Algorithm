@@ -26,7 +26,7 @@ public class Main {
 			for(int i=0; i<out.length; i++) {
 				sb.append(out[i]).append(' ');
 			}
-			sb.append("\n");
+			sb.append('\n');
 			return;
 		}
 		for(int i=1; i<=N; i++) {
