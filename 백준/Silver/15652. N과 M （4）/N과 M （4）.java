@@ -1,37 +1,37 @@
-import java.util.Scanner;
- 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
 public class Main {
- 
-	public static int N, M;
-	public static int[] arr;
- 
-	public static void main(String[] args) {
- 
-		Scanner in = new Scanner(System.in);
- 
-		N = in.nextInt();
-		M = in.nextInt();
-		arr = new int[M];
- 
-		dfs(1, 0);
- 
+	static int N;
+	static int M;
+	static int[] out;
+	static boolean[] visited;
+	static StringBuilder sb = new StringBuilder();
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		
+		out = new int[M];
+		rec(0, 1);
+		System.out.print(sb);
 	}
- 
-	public static void dfs(int at, int depth) {
- 
-		if (depth == M) {
-			for (int val : arr) {
-				System.out.print(val + " ");
+	public static void rec(int depth, int start) {
+		if(depth == M) {
+			for(int i=0; i<M; i++) {
+				sb.append(out[i]).append(' ');
 			}
-			System.out.println();
+			sb.append('\n');
 			return;
 		}
- 
-		for (int i = at; i <= N; i++) {
-			arr[depth] = i;
-			dfs(i, depth + 1);
+		
+		for(int i=start; i<=N; i++) {
+	
+			out[depth] = i;
+			rec(depth+1, i);
 		}
- 
 	}
- 
 }
