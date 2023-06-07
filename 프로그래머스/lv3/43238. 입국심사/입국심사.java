@@ -7,8 +7,8 @@ class Solution {
         for(int i=0; i<times.length; i++){
             end = Math.max(times[i], end);
         }
-        end = end*n;
-        answer = end;
+        
+        answer = end*n;
         while(start<=end){
             mid = (start+end)/2;
             long count = 0;
@@ -18,10 +18,10 @@ class Solution {
         
             if(count<n){
                 start = mid +1;
-                
+                 answer= mid;
             }else{
                 end = mid -1;
-                answer = mid;
+               
             }
         }
        // answer = (end+start)/2;
