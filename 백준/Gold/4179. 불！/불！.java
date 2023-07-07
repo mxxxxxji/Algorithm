@@ -9,8 +9,6 @@ public class Main {
     static String[][] map;
     static boolean[][] visitedF;
     static boolean[][] visitedJ;
-    static int jy, jx; // 시작 위치
-    static int fy, fx; // 불난 우치
     static int dir[][] = {{-1,0}, {1,0}, {0,-1}, {0, 1}};
     static int answer = 0;
     static Queue<int[]> qj;
@@ -46,12 +44,7 @@ public class Main {
         }
         bfs();
 
-//        for(int i=0; i<R; i++){
-//            for(int j=0; j<C; j++){
-//                System.out.print(map[i][j]);
-//            }
-//            System.out.println();
-//        }
+
         System.out.println("IMPOSSIBLE");
 
     }
@@ -85,6 +78,12 @@ public class Main {
                     if(nr<0||nc<0||nr>R-1||nc>C-1) {
                         answer++;
                         System.out.println(answer);
+//                        for(int a=0; a<R; a++){
+//                            for(int b=0; b<C; b++){
+//                                System.out.print(map[a][b]);
+//                            }
+//                            System.out.println();
+//                        }
                         System.exit(0);
                     }
                     if(!map[nr][nc].equals(".")) continue;
@@ -94,7 +93,7 @@ public class Main {
 
                 }
             }
-
+            
             answer++;
         }
     }
