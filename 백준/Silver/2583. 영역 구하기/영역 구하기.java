@@ -9,6 +9,7 @@ public class Main {
     static int[][] dir = {{-1,0}, {1,0}, {0,-1}, {0,1}};
     static StringBuilder sb;
     static ArrayList<Integer> list;
+    static int cnt;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -42,7 +43,9 @@ public class Main {
             for(int j=0; j<M; j++){
                 if(!visited[i][j] && map[i][j]==0) {
                     count++;
-                    bfs(i, j);
+                    cnt=0;
+                    dfs(i, j);
+                    list.add(cnt);
                 }
             }
         }
@@ -52,25 +55,18 @@ public class Main {
             System.out.print(list.get(i)+" ");
         }
     }
-    public static void bfs(int r, int c){
-        Queue<int[]> q = new LinkedList<>();
-        q.add(new int[]{r, c});
-        visited[r][c] = true;
-        int cnt = 1;
-        while(!q.isEmpty()){
-            int[] n = q.poll();
-            for(int i=0; i<4; i++){
-                int nr = n[0] + dir[i][0];
-                int nc = n[1] + dir[i][1];
-                if(nr<0 || nc<0 || nr>N-1 || nc>M-1) continue;
-                if(visited[nr][nc]) continue;
-                if(map[nr][nc]==1) continue;
-                q.add(new int[]{nr, nc});
-                visited[nr][nc] = true;
-                cnt++;
-            }
-        }
-        list.add(cnt);
-    }
 
+    public static void dfs(int r, int c){
+        visited[r][c] = true;
+        cnt++;
+        for(int i=0; i<4; i++) {
+            int nr = r + dir[i][0];
+            int nc = c + dir[i][1];
+            if(nr<0 || nc<0 || nr>N-1 || nc>M-1) continue;
+            if(visited[nr][nc]) continue;
+            if(map[nr][nc]==1) continue;
+            dfs(nr, nc);
+
+        }
+    }
 }
