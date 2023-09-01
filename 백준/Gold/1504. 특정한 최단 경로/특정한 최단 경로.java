@@ -8,7 +8,7 @@ public class Main {
     static ArrayList<ArrayList<Node>> graph;
     static int[] dist;
     static int res1, res2;
-    static int INF = 20000000;
+    static int INF = 2000000;
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -57,7 +57,7 @@ public class Main {
         dist[start] = 0;
         while(!pq.isEmpty()){
             Node cur = pq.poll();
-            //if(cur.idx == end) break;
+            if(cur.idx == end) break;
             //if(dist[cur.idx]<cur.cost) continue;
             for(int i=0; i<graph.get(cur.idx).size(); i++){
                 Node next = graph.get(cur.idx).get(i);
