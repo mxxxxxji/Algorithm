@@ -56,7 +56,7 @@ public class Main {
         while(!q.isEmpty()){
             Node cur = q.poll();
 
-            if(dist[cur.idx]>cur.cost) continue;
+            if(dist[cur.idx]<cur.cost) continue;
             for(int i=0; i<graph.get(cur.idx).size(); i++){
                 Node next = graph.get(cur.idx).get(i);
                 if(dist[next.idx] > next.cost + cur.cost){
