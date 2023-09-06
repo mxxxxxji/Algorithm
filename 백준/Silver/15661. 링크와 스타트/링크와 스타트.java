@@ -29,7 +29,12 @@ public class Main {
     }
     static void dfs(int start, int depth){
         if(depth==r){
-            min = Math.min(diff(), min);
+            int answer = diff();
+            if(answer==0){
+                System.out.println(answer);
+                System.exit(0);
+            }
+            min = Math.min(min, answer);
             return;
         }
         for(int i=start; i<N+1; i++){
