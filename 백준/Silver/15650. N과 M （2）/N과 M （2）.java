@@ -3,32 +3,36 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int N, M;
+    static StringBuilder sb = new StringBuilder();
+    static int[] arr;
+    static boolean[] visited;
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-	static int N;
-	static int M;
-	static int[] res;
-	static void recursion(int depth, int start) {
-		if(depth == M) {
-			for(int i=0; i<res.length; i++) {
-				System.out.print(res[i]+" ");
-			}
-			System.out.println();
-			return;
-		}
-		for(int i=start; i<=N; i++){
-			res[depth] = i; 
-			recursion(depth+1, i+1);
-		}
-	}
-	public static void main(String[] args) throws Exception {
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		res = new int[M];
-		recursion(0, 1);
-	}
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        arr = new int[M];
+        visited = new boolean[N+1];
+        dfs(1,0);
+        System.out.print(sb);
+    }
+    static void dfs(int start, int depth){
+        if(depth==M){
+            for(int i=0; i<arr.length; i++){
+                sb.append(arr[i]).append(' ');
+            }
+            sb.append('\n');
+            return;
+        }
+        for(int i=start; i<N+1; i++){
+            if(visited[i]) continue;
+            visited[i] = true;
+            arr[depth] = i;
+            dfs(i+1,depth+1);
+            visited[i] = false;
 
+        }
+    }
 }
