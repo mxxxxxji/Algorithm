@@ -4,53 +4,44 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-
-	static int N;
-	static int M;
-	static int[] out;
-	static int[] arr;
-	static boolean[] visited;
-	static StringBuilder sb = new StringBuilder();
-	public static void main(String[] args) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		
-		out = new int[M];
-		arr = new int[N];
-		visited= new boolean[N];
-		st = new StringTokenizer(br.readLine());
-		for(int i=0; i<N; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
-		}
-		
-		Arrays.sort(arr);
-		
-		rec(0,0);
-		System.out.print(sb);
-	}
-	public static void rec(int depth, int start) {
-		if(depth==M) {
-			for(int i=0; i<out.length; i++) {
-				sb.append(out[i]).append(' ');
-			}
-			sb.append('\n');
-			return;
-		}
-		int before = 0;
-		for(int i=start; i<N; i++) {
-			if(before != arr[i]) {
-				if(!visited[i]) {
-					visited[i] = true;
-					out[depth] = arr[i];
-					before = arr[i];
-					rec(depth+1, i+1);
-					visited[i] = false;
-				}
-			}
-		}
-	}
-
+    static int N, M;
+    static int[] arr;
+    static int[] number;
+    static boolean[] visited;
+    static StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        arr = new int[M];
+        number = new int[N];
+        visited = new boolean[N];
+        st = new StringTokenizer(br.readLine());
+        for(int i=0; i<N; i++){
+            number[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(number);
+        dfs(0,0);
+        System.out.print(sb);
+    }
+    static void dfs(int start, int depth){
+        if(depth==M){
+            for(int num : arr){
+                sb.append(num).append(' ');
+            }
+            sb.append('\n');
+            return;
+        }
+        int before = 0;
+        for(int i=start; i<N; i++){
+            if(before==number[i]) continue;
+            if(visited[i]) continue;
+            visited[i]=true;
+            arr[depth] = number[i];
+            before = arr[depth];
+            dfs(i+1,depth+1);
+            visited[i]=false;
+        }
+    }
 }
