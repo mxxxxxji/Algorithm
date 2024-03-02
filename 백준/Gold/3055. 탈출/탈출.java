@@ -10,7 +10,7 @@ public class Main {
     static int[][] dir = {{-1,0}, {1,0}, {0,-1}, {0,1}};
     static Queue<Pos> hedgehogQ;
     static Queue<Pos> waterQ;
-    //static boolean[][] visited;
+    static boolean[][] visited;
     static StringBuilder sb;
     static int answer;
     public static void main(String[] args) throws Exception {
@@ -22,7 +22,7 @@ public class Main {
         map = new char[R][C];
         hedgehogQ = new LinkedList<>();
         waterQ = new LinkedList<>();
-        //visited = new boolean[R][C];
+        visited = new boolean[R][C];
         sb = new StringBuilder();
         for(int i=0; i<R; i++){
             String s = br.readLine();
@@ -30,7 +30,7 @@ public class Main {
                 map[i][j] = s.charAt(j);
                 if(map[i][j]=='S') {
                     hedgehogQ.add(new Pos(i, j, 0));
-                    //visited[i][j] = true;
+                    visited[i][j] = true;
                 }
                 if(map[i][j]=='*') waterQ.add(new Pos(i, j, 0));
             }
@@ -73,10 +73,10 @@ public class Main {
                         answer = p.time + 1;
                         return;
                     }
-                   // if(visited[nr][nc]) continue;
+                    if(visited[nr][nc]) continue;
                     if(map[nr][nc] =='.'){
-                        map[nr][nc] = 'S';
-                        //visited[nr][nc] = true;
+                        //map[nr][nc] = 'S';
+                        visited[nr][nc] = true;
                         hedgehogQ.add(new Pos(nr, nc, p.time+1));
                     }
                 }
