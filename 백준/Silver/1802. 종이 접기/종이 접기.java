@@ -23,10 +23,10 @@ public class Main {
         if(start==end) return true;
 
         int mid = (start + end) / 2;
-        for(int i=start; i<mid; i++) {
-            if (input.charAt(i) == input.charAt(end - i)) return false;
+        for(int i=start; i<mid; i++){
+            if(input.charAt(i)==input.charAt(end-i)) return false;
         }
-
-        return check(mid +1, end) && check(start, mid-1);
+        if(check(mid +1, end) && check(start, mid-1)) return true;
+        else return false;
     }
 }
