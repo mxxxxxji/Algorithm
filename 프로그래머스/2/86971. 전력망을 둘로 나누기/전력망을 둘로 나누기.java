@@ -18,7 +18,7 @@ class Solution {
             map[a][b] = 0;
             map[b][a] = 0;
            
-            //System.out.println()
+      
             answer = Math.min(answer, bfs(i+1, n));
             
             map[a][b] = 1;
@@ -39,8 +39,6 @@ class Solution {
                     q.add(i);
                     count++;
                     visited[i]=1;
-                    
-                    
                 }
             }
         }
