@@ -1,45 +1,37 @@
 class Solution {
     public int solution(int[] bandage, int health, int[][] attacks) {
-        int answer = 0;
-        int cur_health = health;
-        int time = 0;
-        int cast_cnt = 0;
-        int idx = 0;
+        int answer = health;
+        // 공격당한 후 기술이 취소되거나 끝나면 붕대감기, 연속 성공 시간 0으로 초기화
+        int time = 0; // 시간
+        int idx=0;
+        int success_time = 0;
         while(idx<attacks.length){
-            
-            
-            if(time == attacks[idx][0]){ // 공격이 있다면
-                 cast_cnt=0; // 연속 시전 실패
-                cur_health -= attacks[idx][1];
-                idx+=1;
-            }else{
-               
-                if(cur_health<health){
-                     // 초당 회복
-                    cur_health+=bandage[1];
-                    cast_cnt++;
-                    // 연속 성공
-                    if(cast_cnt==bandage[0]){
-                        cur_health+=bandage[2];
-                        cast_cnt = 0;
-                    }
-                    
-                }else{
-                    //if(cast_cnt>=bandage[0]){
-                        cast_cnt=0;
-                   // }
-                }
-                
+
+            // 공격이 있다면
+            if(time==attacks[idx][0]){
+                answer -= attacks[idx][1];
+                success_time=0;
+                idx++;
+            }else{                
+                // 최대 체력보다 작다면
+                if(answer<health){
+                    answer+=bandage[1];
+                    success_time++;
+                    // 연속 시전 성공
+                    if(success_time==bandage[0]){
+                        answer+= bandage[2];
+                        success_time = 0;
+                    }                    
+                }                                   
             }
-            
-                   if(cur_health<=0) return -1;
-            // 초기체력을 넘을 수 없다.
-            if(cur_health>health) cur_health = health;
+            // 죽으면
+            if(answer<=0) return -1;
+            // 최대 체력 넘는다면
+            if(answer>health) answer = health;
             time++;
-            
-           
         }
-        if(cur_health<=0) return -1;
-        else return cur_health;
+        
+        
+        return answer;
     }
 }
