@@ -3,41 +3,32 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-
-	static int N;
-	static int M;
-	static int[] res;
-	static boolean[] visited;
-	static void permutation(int k) {
-		
-		if(k==M) {
-			for(int i=0; i<M; i++) {
-				System.out.print(res[i]+" ");
-			}
-			System.out.println();
-			return;
-		}
-		for(int i=1; i<=N; i++) {
-			if(!visited[i]) {
-				visited[i] = true;
-				res[k] = i;
-				permutation(k+1);
-				visited[i] = false;
-			}
-		}
-		
-		
-	}
-	public static void main(String[] args) throws Exception{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		
-		res = new int[M+1];
-		visited = new boolean[N+1];
-		
-		permutation(0);
-	}
+    static int N, M;
+    static int[] arr;
+    static boolean[] visited;
+    public static void main(String[] args)throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        arr = new int[M];
+        visited = new boolean[N+1];
+        dfs(0);
+    }
+    static void dfs(int depth){
+        if(depth==M){
+            for(int i=0; i<arr.length; i++){
+                System.out.print(arr[i]+" ");
+            }
+            System.out.println();
+            return;
+        }
+        for(int i=1; i<N+1; i++){
+            if(visited[i]) continue;
+            visited[i] = true;
+            arr[depth] = i;
+            dfs(depth+1);
+            visited[i] = false;
+        }
+    }
 }
