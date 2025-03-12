@@ -1,54 +1,44 @@
+
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
+    // 6
+    static StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-	static int N;
-	static int M;
-	static int[] out;
-	static int[] arr;
-	static boolean[] visited;
-	static StringBuilder sb = new StringBuilder();
-	public static void main(String[] args) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		
-		out = new int[M];
-		arr = new int[N];
-		visited= new boolean[N];
-		st = new StringTokenizer(br.readLine());
-		for(int i=0; i<N; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
-		}
-		
-		Arrays.sort(arr);
-		
-		rec(0, 0);
-		System.out.print(sb);
-	}
-	public static void rec(int depth, int start) {
-		if(depth==M) {
-			for(int i=0; i<out.length; i++) {
-				sb.append(out[i]).append(' ');
-			}
-			sb.append('\n');
-			return;
-		}
-		for(int i=start; i<N; i++) {
-			
-			//if(!visited[i]) {
-			//	visited[i] = true;
-				out[depth] = arr[i];
-				rec(depth+1, i);
-				//visited[i] = false;
-			//}
-	
-		}
-	}
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
+        st = new StringTokenizer(br.readLine());
+        int[] temp = new int[n];
+        for(int i =0; i<n; i++){
+            temp[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(temp);
+        permutation(0, temp,  n, m, new int[m], new boolean[n],  0);
+        System.out.println(sb);
+
+    }
+    static void permutation(int start, int[] temp, int n, int m, int[] arr, boolean[] visited, int depth) {
+        if (depth == m) {
+            for (int num : arr) {
+                sb.append(num).append(' ');
+            }
+            sb.append("\n");
+            return;
+        }
+        for (int i = start; i < n; i++) {
+            //if (visited[i]) continue;
+            arr[depth] = temp[i];
+            // visited[i] = true;
+            permutation(i, temp, n, m, arr, visited, depth + 1);
+            // visited[i] = false;
+        }
+    }
 }
